@@ -10,6 +10,8 @@ enum Gender {
   male,
 }
 
+int userHeight = 180;
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
@@ -25,6 +27,7 @@ class _InputPageState extends State<InputPage> {
           title: Text('BMI CALCULATOR'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
                 child: Row(
@@ -66,6 +69,39 @@ class _InputPageState extends State<InputPage> {
             Expanded(
               child: ReusableCard(
                 color: kActiveCardColor,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'HEIGHT',
+                      style: kLabelTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: <Widget>[
+                        Text(userHeight.toString(), style: kNumberTextStyle),
+                        Text(
+                          'cm',
+                          style: kLabelTextStyle,
+                        )
+                      ],
+                    ),
+                    Slider(
+                      value: userHeight.toDouble(),
+                      min: kUserMinHeight,
+                      max: kUserMaxHeight,
+                      activeColor: Color(0xFFEB1555),
+                      inactiveColor: Color(0xFF8D8E98),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          userHeight = newValue.round();
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
