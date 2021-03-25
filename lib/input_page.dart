@@ -11,6 +11,7 @@ enum Gender {
 }
 
 int userHeight = 180;
+int userWeight = 80;
 
 class InputPage extends StatefulWidget {
   @override
@@ -82,10 +83,7 @@ class _InputPageState extends State<InputPage> {
                       textBaseline: TextBaseline.alphabetic,
                       children: <Widget>[
                         Text(userHeight.toString(), style: kNumberTextStyle),
-                        Text(
-                          'cm',
-                          style: kLabelTextStyle,
-                        )
+                        Text('cm', style: kLabelTextStyle),
                       ],
                     ),
                     Slider(
@@ -107,6 +105,35 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                     child: ReusableCard(
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('WEIGHT', style: kLabelTextStyle),
+                          Text(userWeight.toString(), style: kNumberTextStyle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    userWeight--;
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 10.0),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    userWeight++;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       color: kActiveCardColor,
                     ),
                   ),
@@ -126,5 +153,30 @@ class _InputPageState extends State<InputPage> {
             )
           ],
         ));
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.icon, this.onPressed});
+
+  final IconData icon;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+      onPressed: onPressed,
+      elevation: 0.0,
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      fillColor: Color(0xFF4C4F5F),
+      shape: CircleBorder(),
+    );
   }
 }
