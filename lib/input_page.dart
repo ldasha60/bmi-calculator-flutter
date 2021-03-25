@@ -12,6 +12,7 @@ enum Gender {
 
 int userHeight = 180;
 int userWeight = 80;
+int userAge = 30;
 
 class InputPage extends StatefulWidget {
   @override
@@ -117,7 +118,9 @@ class _InputPageState extends State<InputPage> {
                                 icon: FontAwesomeIcons.minus,
                                 onPressed: () {
                                   setState(() {
-                                    userWeight--;
+                                    if (userWeight > 0) {
+                                      userWeight--;
+                                    }
                                   });
                                 },
                               ),
@@ -139,6 +142,36 @@ class _InputPageState extends State<InputPage> {
                   ),
                   Expanded(
                     child: ReusableCard(
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('AGE', style: kLabelTextStyle),
+                          Text(userAge.toString(), style: kNumberTextStyle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    if (userAge > 0) {
+                                      userAge--;
+                                    }
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 10.0),
+                              RoundIconButton(
+                                  icon: FontAwesomeIcons.plus,
+                                  onPressed: () {
+                                    setState(() {
+                                      userAge++;
+                                    });
+                                  }),
+                            ],
+                          ),
+                        ],
+                      ),
                       color: kActiveCardColor,
                     ),
                   ),
@@ -157,7 +190,7 @@ class _InputPageState extends State<InputPage> {
 }
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({this.icon, this.onPressed});
+  RoundIconButton({@required this.icon, @required this.onPressed});
 
   final IconData icon;
   final Function onPressed;
