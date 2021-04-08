@@ -4,6 +4,15 @@ import 'package:flutter/material.dart';
 import '../components/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
+  final String bmiResult;
+  final String textResult;
+  final String interpretation;
+
+  const ResultsPage(
+      {@required this.bmiResult,
+      @required this.textResult,
+      @required this.interpretation});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +28,7 @@ class ResultsPage extends StatelessWidget {
                 padding: EdgeInsets.all(15.0),
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Your Result',
+                  'Your result',
                   style: kTitleTextStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -34,15 +43,15 @@ class ResultsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Normal',
+                      textResult.toUpperCase(),
                       style: kResultTextStyle,
                     ),
                     Text(
-                      '18.6',
+                      bmiResult,
                       style: kBMITextStyle,
                     ),
                     Text(
-                      'Your BMI is low, you need to eat more!',
+                      interpretation,
                       style: kBodyTextStyle,
                       textAlign: TextAlign.center,
                     ),
@@ -52,7 +61,7 @@ class ResultsPage extends StatelessWidget {
             ),
             BottomButton(
                 bottomText: Text(
-                  'RE_CALCULATE',
+                  'RE-CALCULATE',
                   style: kButtonTextStyle,
                 ),
                 onTap: () {
